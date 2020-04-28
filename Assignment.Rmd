@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(png)
 ```
 
-## 1.
+## 1.Plagiarism
 
 By including this statement, I Juan Pablo Navarro Rueda verify that:
 
@@ -24,20 +24,47 @@ By including this statement, I Juan Pablo Navarro Rueda verify that:
 knitr::include_graphics("Images/Plagiarism.png")
 ```
 
-## 2.
+## 2.Manipulating Arrays
 
-```{r}
+First lets set the seed to get random numbers with the following code, after having the seed setted, well create a vector with the function `runif` which by default creates a vector of random number from 0 to 1, this range can be changed adding two arguments when we call the function, `min` and `max`.
+```{r,comment=NA}
 studentno <- 20021160
 set.seed(studentno)
+my_vector <- runif(35)
+my_vector
 ```
 
+When the vector is created a summary of it is diplayed with an special format presented in the assigment guide. First the function `summary` is used to storage some statisticals details in the variable `suma` this details for vectors are: 
 
-## Including Plots
++ Minimum value
++ First quantile
++ Median
++ Mean
++ Third quantile
++ Maximum value
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+the `cat` function is used to create the format and with the variable `suma`, the requiered values were presented.
+```{r,comment=NA}
+suma <- summary(my_vector)
+cat("Minimum value:",suma[["Min."]],"\tMaximum value:", suma[["Max."]],"\nAverage value:", suma[["Mean"]],"\tMedian value:",suma[["Median"]])
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+A random number between 8 and 12 is selected with the function `sample`, this number is assigned to varible `n` and the nth smallest value and nth largest value. This is done by sorting the vector with the function `sort` twice and returning the nth value. However, the second time we add the `decreasing` argument to the function to have the vector sorted from the largest value to the smallest.
+```{r,comment=NA}
+n <- sample(8:12,1)
+nth <- paste(n,"th",sep="")
+cat("The",nth,"smallest value is:", sort(my_vector)[n],"\nThe",nth,"largest value is:",sort(my_vector,decreasing = TRUE)[n])
+```
+The vector now is reshaped to a 5 by 7 matrix with the function `matrix`. To know which column has the largest sum the function `order` with the function `apply` were used. the function `apply` first creates a vector with the sum of all the columns in order of the column, for instance, the first column sum is the first element of the output vector of the function `apply`. Then the function order returns the indexes of, in this case, the vector of the sums of each column ordered, which represent teh column itself. similar to the `sort` function but with indexes. The same functions were applied for the sum of each row.
+```{r, comment=NA}
+mat <- matrix(my_vector,nrow = 5,ncol = 7)
+lgst_sum <- order(apply(mat,2,sum),decreasing = T)[1]
+smst_sum <- order(apply(mat,1,sum))[1]
+cat("Column",lgst_sum,"has the largest sum of all columns","\nRow",smst_sum,"has the smallest sum of all rows")
+```
+Using the function `which` the values mat[i,j] that are grater than 0.4 are replaced for mat[i,j]-1. First the indexes of the values larger than 0.4 are saved in the variable `ltp4` then with this vector a replacement is done for all the elements which this condition is true on the `mat`matrix. The last step is sum all the elements in the matrix with the function `sum` and present the results in the requiered format.
+```{r,comment=NA}
+ltp4 <- which(mat>=0.4)
+mat[ltp4]=mat[ltp4]-1
+sum_mat <- sum(mat)
+cat("The sum of the new matrix is",sum_mat)
+```
