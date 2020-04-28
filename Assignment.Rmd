@@ -7,6 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(png)
 ```
 
 ## 1.
@@ -19,9 +20,17 @@ By including this statement, I Juan Pablo Navarro Rueda verify that:
 + I am aware that this work may be reproduced and submitted to plagiarism detection software programs for the purpose of detecting possible plagiarism (which may retain a copy on its database for future plagiarism checking).
 + I hereby certify that I have read and understand what the School of Computing, Engineering and Mathematics defines as minor and substantial breaches of misconduct as outlined in the learning guide for this unit.
 
-```{r cars}
-summary(cars)
+```{r plag, echo=FALSE, fig.asp=0.1, fig.cap="From: https://images.app.goo.gl/QYh7jY4sFVJ9pki56"}
+knitr::include_graphics("Images/Plagiarism.png")
 ```
+
+## 2.
+
+```{r}
+studentno <- 20021160
+set.seed(studentno)
+```
+
 
 ## Including Plots
 
