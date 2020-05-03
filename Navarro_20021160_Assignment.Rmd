@@ -67,3 +67,21 @@ mat[mat>=0.4]=mat[mat>=0.4]-1
 sum_mat <- sum(mat)
 cat("The sum of the new matrix is",sum_mat)
 ```
+
+## 3. Plotting
+
+```{r,comment=NA,message=F}
+library(R.matlab)
+A <- readMat('Data/paviauni.mat')
+```
+Using the function `dim` the dimmension of the array will be display
+```{r,comment=NA}
+cat("A$X is",dim(A$X)[1],"by",dim(A$X)[2],"by",dim(A$X)[3])
+cat("A$groundtruth is", dim(A$groundtruth)[1],"by",dim(A$groundtruth)[2])
+```
+
+```{r,comment=NA}
+for(i in 0:9){
+  cat("Class",paste0(i,":"),table(A$groundtruth)[i+1],"pixels\n")
+}
+```

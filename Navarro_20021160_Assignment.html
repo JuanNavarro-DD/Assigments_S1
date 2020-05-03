@@ -364,7 +364,7 @@ summary {
 
 <h1 class="title toc-ignore">Assignment</h1>
 <h4 class="author">Juan Pablo NAVARRO RUEDA - 20021160</h4>
-<h4 class="date">03 May, 2020</h4>
+<h4 class="date">04 May, 2020</h4>
 
 </div>
 
@@ -431,6 +431,29 @@ Row 3 has the smallest sum of all rows</code></pre>
 sum_mat &lt;- sum(mat)
 cat(&quot;The sum of the new matrix is&quot;,sum_mat)</code></pre>
 <pre><code>The sum of the new matrix is -4.539845</code></pre>
+</div>
+<div id="plotting" class="section level2">
+<h2>3. Plotting</h2>
+<pre class="r"><code>library(R.matlab)
+A &lt;- readMat('Data/paviauni.mat')</code></pre>
+<p>Using the function <code>dim</code> the dimmension of the array will be display</p>
+<pre class="r"><code>cat(&quot;A$X is&quot;,dim(A$X)[1],&quot;by&quot;,dim(A$X)[2],&quot;by&quot;,dim(A$X)[3])</code></pre>
+<pre><code>A$X is 610 by 340 by 103</code></pre>
+<pre class="r"><code>cat(&quot;A$groundtruth is&quot;, dim(A$groundtruth)[1],&quot;by&quot;,dim(A$groundtruth)[2])</code></pre>
+<pre><code>A$groundtruth is 610 by 340</code></pre>
+<pre class="r"><code>for(i in 0:9){
+  cat(&quot;Class&quot;,paste0(i,&quot;:&quot;),table(A$groundtruth)[i+1],&quot;pixels\n&quot;)
+}</code></pre>
+<pre><code>Class 0: 164624 pixels
+Class 1: 6631 pixels
+Class 2: 18649 pixels
+Class 3: 2099 pixels
+Class 4: 3064 pixels
+Class 5: 1345 pixels
+Class 6: 5029 pixels
+Class 7: 1330 pixels
+Class 8: 3682 pixels
+Class 9: 947 pixels</code></pre>
 </div>
 
 
