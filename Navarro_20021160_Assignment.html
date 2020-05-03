@@ -426,9 +426,8 @@ smst_sum &lt;- order(apply(mat,1,sum))[1]
 cat(&quot;Column&quot;,lgst_sum,&quot;has the largest sum of all columns&quot;,&quot;\nRow&quot;,smst_sum,&quot;has the smallest sum of all rows&quot;)</code></pre>
 <pre><code>Column 1 has the largest sum of all columns 
 Row 3 has the smallest sum of all rows</code></pre>
-<p>Using the function <code>which</code> the values mat[i,j] that are grater than 0.4 are replaced for mat[i,j]-1. First the indexes of the values larger than 0.4 are saved in the variable <code>ltp4</code> then with this vector a replacement is done for all the elements which this condition is true on the <code>mat</code>matrix. The last step is sum all the elements in the matrix with the function <code>sum</code> and present the results in the requiered format.</p>
-<pre class="r"><code>ltp4 &lt;- which(mat&gt;=0.4)
-mat[ltp4]=mat[ltp4]-1
+<p>The values of mat[i,j] that are grater than 0.4 are replaced for mat[i,j]-1. This is done in the first line. The last step is sum all the elements in the matrix with the function <code>sum</code> and present the results in the requiered format.</p>
+<pre class="r"><code>mat[mat&gt;=0.4]=mat[mat&gt;=0.4]-1
 sum_mat &lt;- sum(mat)
 cat(&quot;The sum of the new matrix is&quot;,sum_mat)</code></pre>
 <pre><code>The sum of the new matrix is -4.539845</code></pre>

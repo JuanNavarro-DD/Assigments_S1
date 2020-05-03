@@ -61,10 +61,9 @@ lgst_sum <- order(apply(mat,2,sum),decreasing = T)[1]
 smst_sum <- order(apply(mat,1,sum))[1]
 cat("Column",lgst_sum,"has the largest sum of all columns","\nRow",smst_sum,"has the smallest sum of all rows")
 ```
-Using the function `which` the values mat[i,j] that are grater than 0.4 are replaced for mat[i,j]-1. First the indexes of the values larger than 0.4 are saved in the variable `ltp4` then with this vector a replacement is done for all the elements which this condition is true on the `mat`matrix. The last step is sum all the elements in the matrix with the function `sum` and present the results in the requiered format.
+The values of mat[i,j] that are grater than 0.4 are replaced for mat[i,j]-1. This is done in the first line. The last step is sum all the elements in the matrix with the function `sum` and present the results in the requiered format.
 ```{r,comment=NA}
-ltp4 <- which(mat>=0.4)
-mat[ltp4]=mat[ltp4]-1
+mat[mat>=0.4]=mat[mat>=0.4]-1
 sum_mat <- sum(mat)
 cat("The sum of the new matrix is",sum_mat)
 ```
