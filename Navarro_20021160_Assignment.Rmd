@@ -100,3 +100,10 @@ for (i in 1:9) {
   }
 }
 ```
+
+## 4.Predicting coin flips
+
+```{r,comment=NA}
+ran_seq<-sample(c(0,1),51,replace = T)
+cat("My fake sequence:",ran_seq)
+```
