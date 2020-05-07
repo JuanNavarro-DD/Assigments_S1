@@ -85,3 +85,18 @@ for(i in 0:9){
   cat("Class",paste0(i,":"),table(A$groundtruth)[i+1],"pixels\n")
 }
 ```
+
+```{r,comment=NA}
+inde=list()
+plots = list()
+par(mfrow=c(3,3))
+for (i in 1:9) {
+  inde[[i]] = which(A$groundtruth==i, arr.ind = T)
+  inde[[i]] = inde[[i]][sample(1:nrow(inde[[i]]),25,F),]
+  plots[[i]] = A$X[inde[[i]][,1],inde[[i]][,2],]
+  plot(plots[[i]][1,1,],type="l")
+  for (j in 2:25){
+    lines(plots[[i]][j,j,])
+  }
+}
+```
