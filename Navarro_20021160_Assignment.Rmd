@@ -104,6 +104,28 @@ for (i in 1:9) {
 ## 4.Predicting coin flips
 
 ```{r,comment=NA}
-ran_seq<-sample(c(0,1),51,replace = T)
+#ran_seq<-sample(c(0,1),51,replace = T)
+ran_seq <- c(0,1,0,1,1,0,0,1,0,1,1,0,0,0,0,1,0,1,0,1,0,1,1,1,0,0,0,0,1,1,0,1,0,0,1,0,0,0,0,1,0,0,1,0,0,1,0,1,0,0,1)
 cat("My fake sequence:",ran_seq)
+```
+
+```{r,comment=NA}
+dife <- abs(diff(ran_seq))
+nf <- sum(dife)
+cat("The sequence of flips fluctuates nf =",nf,"times.")
+```
+
+```{r,comment=NA}
+fluctuation <- replicate(10^5,{sum(abs(diff(sample(c(0,1),51,replace = T))))})
+hist(fluctuation,breaks = 22,xlab = "number of fluctuations")
+```
+
+```{r,comment=NA}
+D=abs(nf-25)
+perc <- (length(fluctuation[fluctuation>=25+D])+length(fluctuation[fluctuation<=25-D]))*100/length(fluctuation)
+cat(paste0(perc,"%"),"of trials have fluctuations that are >=",D,"away from average.")
+```
+
+```{r,comment=NA}
+
 ```
