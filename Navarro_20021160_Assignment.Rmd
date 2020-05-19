@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,comment=NA)
 library(png)
 ```
 
@@ -27,7 +27,7 @@ knitr::include_graphics("Images/Plagiarism.png")
 ## 2.Manipulating Arrays
 
 First lets set the seed to get random numbers with the following code, after having the seed setted, well create a vector with the function `runif` which by default creates a vector of random number from 0 to 1, this range can be changed adding two arguments when we call the function, `min` and `max`.
-```{r,comment=NA}
+```{r}
 studentno <- 20021160
 set.seed(studentno)
 my_vector <- runif(35)
@@ -44,25 +44,25 @@ When the vector is created a summary of it is diplayed with an special format pr
 + Maximum value
 
 the `cat` function is used to create the format and with the variable `suma`, the requiered values were presented.
-```{r,comment=NA}
+```{r}
 suma <- summary(my_vector)
 cat("Minimum value:",suma[["Min."]],"\tMaximum value:", suma[["Max."]],"\nAverage value:", suma[["Mean"]],"\tMedian value:",suma[["Median"]])
 ```
 A random number between 8 and 12 is selected with the function `sample`, this number is assigned to varible `n` and the nth smallest value and nth largest value. This is done by sorting the vector with the function `sort` twice and returning the nth value. However, the second time we add the `decreasing` argument to the function to have the vector sorted from the largest value to the smallest.
-```{r,comment=NA}
+```{r}
 n <- sample(8:12,1)
 nth <- paste(n,"th",sep="")
 cat("The",nth,"smallest value is:", sort(my_vector)[n],"\nThe",nth,"largest value is:",sort(my_vector,decreasing = TRUE)[n])
 ```
 The vector now is reshaped to a 5 by 7 matrix with the function `matrix`. To know which column has the largest sum the function `order` with the function `apply` were used. the function `apply` first creates a vector with the sum of all the columns in order of the column, for instance, the first column sum is the first element of the output vector of the function `apply`. Then the function order returns the indexes of, in this case, the vector of the sums of each column ordered, which represent teh column itself. similar to the `sort` function but with indexes. The same functions were applied for the sum of each row.
-```{r, comment=NA}
+```{r}
 mat <- matrix(my_vector,nrow = 5,ncol = 7)
 lgst_sum <- order(apply(mat,2,sum),decreasing = T)[1]
 smst_sum <- order(apply(mat,1,sum))[1]
 cat("Column",lgst_sum,"has the largest sum of all columns","\nRow",smst_sum,"has the smallest sum of all rows")
 ```
 The values of mat[i,j] that are grater than 0.4 are replaced for mat[i,j]-1. This is done in the first line. The last step is sum all the elements in the matrix with the function `sum` and present the results in the requiered format.
-```{r,comment=NA}
+```{r}
 mat[mat>=0.4]=mat[mat>=0.4]-1
 sum_mat <- sum(mat)
 cat("The sum of the new matrix is",sum_mat)
@@ -70,23 +70,23 @@ cat("The sum of the new matrix is",sum_mat)
 
 ## 3. Plotting
 
-```{r,comment=NA,message=F}
+```{r,message=F}
 library(R.matlab)
 A <- readMat('Data/paviauni.mat')
 ```
 Using the function `dim` the dimmension of the array will be display
-```{r,comment=NA}
+```{r}
 cat("A$X is",dim(A$X)[1],"by",dim(A$X)[2],"by",dim(A$X)[3])
 cat("A$groundtruth is", dim(A$groundtruth)[1],"by",dim(A$groundtruth)[2])
 ```
 
-```{r,comment=NA}
+```{r}
 for(i in 0:9){
   cat("Class",paste0(i,":"),table(A$groundtruth)[i+1],"pixels\n")
 }
 ```
 
-```{r,comment=NA}
+```{r}
 inde=list()
 plots = list()
 par(mfrow=c(3,3))
@@ -94,7 +94,7 @@ for (i in 1:9) {
   inde[[i]] = which(A$groundtruth==i, arr.ind = T)
   inde[[i]] = inde[[i]][sample(1:nrow(inde[[i]]),25,F),]
   plots[[i]] = A$X[inde[[i]][,1],inde[[i]][,2],]
-  plot(plots[[i]][1,1,],type="l")
+  plot(plots[[i]][1,1,],type="l",ylab = paste("Class",i))
   for (j in 2:25){
     lines(plots[[i]][j,j,])
   }
@@ -103,29 +103,29 @@ for (i in 1:9) {
 
 ## 4.Predicting coin flips
 
-```{r,comment=NA}
+```{r}
 #ran_seq<-sample(c(0,1),51,replace = T)
 ran_seq <- c(0,1,0,1,1,0,0,1,0,1,1,0,0,0,0,1,0,1,0,1,0,1,1,1,0,0,0,0,1,1,0,1,0,0,1,0,0,0,0,1,0,0,1,0,0,1,0,1,0,0,1)
 cat("My fake sequence:",ran_seq)
 ```
 
-```{r,comment=NA}
+```{r}
 dife <- abs(diff(ran_seq))
 nf <- sum(dife)
 cat("The sequence of flips fluctuates nf =",nf,"times.")
 ```
 
-```{r,comment=NA}
+```{r}
 fluctuation <- replicate(10^5,{sum(abs(diff(sample(c(0,1),51,replace = T))))})
 hist(fluctuation,breaks = 22,xlab = "number of fluctuations")
 ```
 
-```{r,comment=NA}
+```{r}
 D=abs(nf-25)
 perc <- (length(fluctuation[fluctuation>=25+D])+length(fluctuation[fluctuation<=25-D]))*100/length(fluctuation)
 cat(paste0(perc,"%"),"of trials have fluctuations that are >=",D,"away from average.")
 ```
 
-```{r,comment=NA}
+```{r}
 
 ```
