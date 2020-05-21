@@ -1,5 +1,5 @@
 money<-10
-guesses<-as.character(sample(c(0,1),2,T))
+guesses<-sample(c(0,1),2,T)
 f = T
 while(money>0 &&length(guesses)<=53){
   cat("\ninput 'h' if your guess is heads and 't' if it is tails")

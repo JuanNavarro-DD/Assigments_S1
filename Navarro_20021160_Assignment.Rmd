@@ -18,7 +18,7 @@ By including this statement, I Juan Pablo Navarro Rueda verify that:
 + I hereby certify that no part of this assignment has been copied from any other student’s work or from any other source except where due acknowledgement is made in the assignment.
 + No part of this assignment has been written/produced for me by another person except where such collaboration has been authorised by the subject lecturer/tutor concerned.
 + I am aware that this work may be reproduced and submitted to plagiarism detection software programs for the purpose of detecting possible plagiarism (which may retain a copy on its database for future plagiarism checking).
-+ I hereby certify that I have read and understand what the School of Computing, Engineering and Mathematics defines as minor and substantial breaches of misconduct as outlined in the learning guide for this unit.
++ I hereby certify that I have read and understood what the School of Computing, Engineering and Mathematics defines as minor and substantial breaches of misconduct as outlined in the learning guide for this unit.
 
 ```{r plag, echo=FALSE, fig.asp=0.1, fig.cap="From: https://images.app.goo.gl/QYh7jY4sFVJ9pki56"}
 knitr::include_graphics("Images/Plagiarism.png")
@@ -26,7 +26,7 @@ knitr::include_graphics("Images/Plagiarism.png")
 
 ## 2.Manipulating Arrays
 
-First lets set the seed to get random numbers with the following code, after having the seed setted, well create a vector with the function `runif` which by default creates a vector of random number from 0 to 1, this range can be changed adding two arguments when we call the function, `min` and `max`.
+A vector with the function `runif` was created which by default creates a vector of random number from 0 to 1.
 ```{r}
 studentno <- 20021160
 set.seed(studentno)
@@ -34,7 +34,7 @@ my_vector <- runif(35)
 my_vector
 ```
 
-When the vector is created a summary of it is diplayed with an special format presented in the assigment guide. First the function `summary` is used to storage some statisticals details in the variable `suma` this details for vectors are: 
+When the vector is created, a summary of it is displayed with the format presented in the assignment guide. First, the function `summary` is used to store some statistical details in the variable `suma` this details for vectors are:  
 
 + Minimum value
 + First quantile
@@ -48,13 +48,13 @@ the `cat` function is used to create the format and with the variable `suma`, th
 suma <- summary(my_vector)
 cat("Minimum value:",suma[["Min."]],"\tMaximum value:", suma[["Max."]],"\nAverage value:", suma[["Mean"]],"\tMedian value:",suma[["Median"]])
 ```
-A random number between 8 and 12 is selected with the function `sample`, this number is assigned to varible `n` and the nth smallest value and nth largest value. This is done by sorting the vector with the function `sort` twice and returning the nth value. However, the second time we add the `decreasing` argument to the function to have the vector sorted from the largest value to the smallest.
+A random number between 8 and 12 is selected with the function `sample`, this number is assigned to varible `n` which will represent the nth smallest value and nth largest value. In order to find these last two values first the vector is sorted with the function `sort` twice and returning the nth value. However, the second time the `decreasing` argument is added to the function to have the vector sorted from the largest value to the smallest.
 ```{r}
 n <- sample(8:12,1)
 nth <- paste(n,"th",sep="")
 cat("The",nth,"smallest value is:", sort(my_vector)[n],"\nThe",nth,"largest value is:",sort(my_vector,decreasing = TRUE)[n])
 ```
-The vector now is reshaped to a 5 by 7 matrix with the function `matrix`. To know which column has the largest sum the function `order` with the function `apply` were used. the function `apply` first creates a vector with the sum of all the columns in order of the column, for instance, the first column sum is the first element of the output vector of the function `apply`. Then the function order returns the indexes of, in this case, the vector of the sums of each column ordered, which represent teh column itself. similar to the `sort` function but with indexes. The same functions were applied for the sum of each row.
+The vector now is reshaped to a 5 by 7 matrix with the function `matrix`. To know which column has the largest sum the function `order` with the function `apply` were used. the function `apply` first creates a vector with the sum of all the columns in order of columns, for instance, the first column sum is the first element of the output vector of the function `apply`. Then the function `order` returns the indexes of, in this case, the vector of the sums of each column sorted, which represent the column itself. similar to the `sort` function but with indexes. The same functions were applied for the sum of each row.
 ```{r}
 mat <- matrix(my_vector,nrow = 5,ncol = 7)
 lgst_sum <- order(apply(mat,2,sum),decreasing = T)[1]
@@ -74,18 +74,18 @@ cat("The sum of the new matrix is",sum_mat)
 library(R.matlab)
 A <- readMat('Data/paviauni.mat')
 ```
-Using the function `dim` the dimmension of the array will be display
+Using the function `dim` the dimmension of the array are displayed
 ```{r}
 cat("A$X is",dim(A$X)[1],"by",dim(A$X)[2],"by",dim(A$X)[3])
 cat("A$groundtruth is", dim(A$groundtruth)[1],"by",dim(A$groundtruth)[2])
 ```
-
+To present the classes in the matrix `A$groundthruth` is possible to use table, however, to present them in the format requiered a for loop is implemented.
 ```{r}
 for(i in 0:9){
   cat("Class",paste0(i,":"),table(A$groundtruth)[i+1],"pixels\n")
 }
 ```
-
+For this last task two lists are created in order to store all the arrays and the indexes in it as it is done in the list `A` that is used for this question. an array of a sample of 25 indexes is created per class in `A$grountruth` and stored in `inde`. Another with the data from `A$X` with the specific indexes from `inde` is assigned to `plots` and finally all the lines are ploted with the functions `plot` and `line`. with `plot` the window is created and `lines` add the 24 extra lines that had not been ploted.
 ```{r}
 inde=list()
 plots = list()
@@ -103,18 +103,18 @@ for (i in 1:9) {
 
 ## 4.Predicting coin flips
 
+
 ```{r}
-#ran_seq<-sample(c(0,1),51,replace = T)
 ran_seq <- c(0,1,0,1,1,0,0,1,0,1,1,0,0,0,0,1,0,1,0,1,0,1,1,1,0,0,0,0,1,1,0,1,0,0,1,0,0,0,0,1,0,0,1,0,0,1,0,1,0,0,1)
 cat("My fake sequence:",ran_seq)
 ```
-
+with the function `diff` the number of times the vector `ran_seq` has fluctuations is found.
 ```{r}
 dife <- abs(diff(ran_seq))
 nf <- sum(dife)
 cat("The sequence of flips fluctuates nf =",nf,"times.")
 ```
-
+the fluctuations is simulated 10^5 times with the function `replicate`. A sample of 51 elements with replacement of the vector `c(0,1)` is created for this porpouse. Finally the results are presented in a histogram.
 ```{r}
 fluctuation <- replicate(10^5,{sum(abs(diff(sample(c(0,1),51,replace = T))))})
 hist(fluctuation,breaks = 22,xlab = "number of fluctuations")
@@ -126,6 +126,55 @@ perc <- (length(fluctuation[fluctuation>=25+D])+length(fluctuation[fluctuation<=
 cat(paste0(perc,"%"),"of trials have fluctuations that are >=",D,"away from average.")
 ```
 
-```{r}
+Coins game:
 
+```{r,eval=F}
+#Money variable with $10 and guesses vector with 2 values to calculate the first toss
+money<-10
+guesses<-sample(c(0,1),2,T)
+#A flag is created for the game to know when an input is incorrect
+f = T
+while(money>0 &&length(guesses)<=53){
+  #The user is asked for an input "h" or "t"
+  cat("\ninput 'h' if your guess is heads and 't' if it is tails")
+  your_current_guess<- readLines(con = stdin(),n=1)
+  #Checking if is not an incorrect input
+  if(your_current_guess != "h" && your_current_guess!="t"){
+    f=F
+    break
+  }
+  #Adding the user selection
+  guesses<-append(guesses,your_current_guess,after = 0)
+  #changing "h" for 1 and "t" for 0
+  guesses[guesses=="h"] = 1
+  guesses[guesses=="t"] = 0
+  guesses <- as.integer(guesses) 
+  #Assigning the value pf
+  if (length(guesses)<=5){
+    pf=0.7
+  }else{
+    dife_user <- abs(diff(guesses))
+    pf <- sum(dife_user)/length(dife_user)
+  }
+  if (runif(1) < pf){
+    thistoss = guesses[2]
+  } else {
+    thistoss = 1-guesses[2]
+  }
+  if (guesses[1]==thistoss){ #Checking if the guess is correct and updating money
+    money=money+1
+    cat("correct, you win $1 your money at the moment is",paste0("$",money))
+  }else{
+    money=money-1
+    cat("incorrect, you lost $1, your money at the moment is",paste0("$",money))
+  }
+}
+#Checking why the while loop broke 
+if(money == 0){
+  cat("\nSorry, you have lost")
+}else if(f){
+  cat("\ncongratulation, you win $",money)
+}else{
+  cat("\nyou input a wrong option")
+}
 ```
